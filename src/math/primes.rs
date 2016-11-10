@@ -23,7 +23,8 @@ pub struct SieveError {
 
 impl<T: Integer + FromPrimitive + ToPrimitive + Clone> Sieve<T> {
     /// Creates a new prime sieve and finds all primes up to and including the given limit
-    pub fn sieve_to(limit: T) -> Result<Sieve<T>, SieveError> {
+    pub fn sieve_to(limit: &T) -> Result<Sieve<T>, SieveError> {
+        let limit = limit.clone();
         let one = T::one();
         let two: T = FromPrimitive::from_i32(2).unwrap();
 
@@ -118,6 +119,40 @@ impl<T: Integer + FromPrimitive + ToPrimitive + Clone> Sieve<T> {
         }
 
         true
+    }
+
+    /// Counts the prime divisors of a number
+    pub fn count_divisors(&self, n: &T) -> u32 {
+        // Try primes in sieve first, and then move on by counting odd numbers
+        // This is similar to the is_prime method, except we're counting them
+        let mut divisors = 1;
+        let mut n = n.clone();
+        let mut iter = self.primes.iter();
+        let mut d = iter.next().unwrap().clone();
+        while n.clone() > T::one() {
+            if n.clone() % d.clone() == T::zero() {
+                // This is the power of the prime + 1
+                let mut choices = 2;
+                // Divide out all powers of this prime
+                n = n / d.clone();
+                while n.clone() % d.clone() == T::zero() {
+                    choices += 1;
+                    n = n / d.clone();
+                }
+
+                // Update number of divisors given the "choices"
+                divisors *= choices;
+            }
+
+            // Get next divisor
+            if let Some(p) = iter.next() {
+                d = p.clone();
+            } else {
+                d = d + FromPrimitive::from_i32(2).unwrap();
+            }
+        }
+
+        divisors
     }
 
     /// Returns a vector containing all the primes which were sieved

@@ -1,10 +1,12 @@
 use math::primes::Sieve;
 use time;
+use num::{BigUint, FromPrimitive};
 
 pub fn solve() {
     let start = time::precise_time_ns();
-    let sieve = Sieve::sieve_to(1000).unwrap();
-    println!("{}", sieve.is_prime(&472_882_047));
+    let limit: u32 = FromPrimitive::from_u32(100).unwrap();
+    let sieve = Sieve::sieve_to(&limit).unwrap();
+    println!("{}", sieve.count_divisors(&28));
     let end = time::precise_time_ns();
 
     println!("Total time: {} ns = {} ms",
