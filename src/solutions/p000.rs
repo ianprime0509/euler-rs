@@ -1,6 +1,7 @@
 use math::primes::Sieve;
+use math::numeric;
 use time;
-use num::{BigUint, FromPrimitive};
+use num::{Float, FromPrimitive, BigInt};
 
 pub fn solve() {
     let start = time::precise_time_ns();
@@ -12,4 +13,7 @@ pub fn solve() {
     println!("Total time: {} ns = {} ms",
              end - start,
              ((end - start) as f64) / 1000000.0);
+
+    let stuff: BigInt = FromPrimitive::from_i32(2).unwrap();
+    println!("{}", numeric::pow_primint(&stuff, 1000));
 }

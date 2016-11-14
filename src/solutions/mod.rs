@@ -12,6 +12,15 @@ mod p010;
 mod p011;
 mod p012;
 mod p013;
+mod p014;
+mod p015;
+mod p016;
+mod p017;
+mod p018;
+mod p019;
+mod p020;
+mod p021;
+mod p025;
 
 pub fn solve(n: i32) {
     match n {
@@ -29,6 +38,15 @@ pub fn solve(n: i32) {
         11 => p011::solve(),
         12 => p012::solve(),
         13 => p013::solve(),
+        14 => p014::solve(),
+        15 => p015::solve(),
+        16 => p016::solve(),
+        17 => p017::solve(),
+        18 => p018::solve(),
+        19 => p019::solve(),
+        20 => p020::solve(),
+        21 => p021::solve(),
+        25 => p025::solve(),
         _ => println!("unimplemented"),
     }
 }

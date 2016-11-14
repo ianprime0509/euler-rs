@@ -1,3 +1,5 @@
+use std::ops::{Add, Sub, Mul, Div, Rem};
+
 use bit_vec::BitVec;
 use num::{FromPrimitive, ToPrimitive, Integer};
 
@@ -21,14 +23,21 @@ pub struct SieveError {
     description: String,
 }
 
-impl<T: Integer + FromPrimitive + ToPrimitive + Clone> Sieve<T> {
+impl<T> Sieve<T>
+    where T: Integer + FromPrimitive + ToPrimitive + Clone,
+          for<'a> &'a T: Add<Output = T>,
+          for<'a> &'a T: Sub<Output = T>,
+          for<'a> &'a T: Mul<Output = T>,
+          for<'a> &'a T: Div<Output = T>,
+          for<'a> &'a T: Rem<Output = T>
+{
     /// Creates a new prime sieve and finds all primes up to and including the given limit
     pub fn sieve_to(limit: &T) -> Result<Sieve<T>, SieveError> {
         let limit = limit.clone();
         let one = T::one();
-        let two: T = FromPrimitive::from_i32(2).unwrap();
+        let two = &one + &one;
 
-        let is_prime_size = match ((limit - one) / two).to_usize() {
+        let is_prime_size = match (&(&limit - &one) / &two).to_usize() {
             Some(n) => n,
             None => {
                 return Err(SieveError {
@@ -40,7 +49,7 @@ impl<T: Integer + FromPrimitive + ToPrimitive + Clone> Sieve<T> {
 
         let mut prime_bits = BitVec::from_elem(is_prime_size, true);
         let mut primes: Vec<T> = Vec::new();
-        primes.push(FromPrimitive::from_i32(2).unwrap());
+        primes.push(two.clone());
 
         // Implement sieve of Eratosthenes
         // Recall that the number represented by index k in is_prime is 2k+3
@@ -103,9 +112,10 @@ impl<T: Integer + FromPrimitive + ToPrimitive + Clone> Sieve<T> {
         }
 
         // Otherwise, we'll actually have to do trial division
+        let two = T::one() + T::one();
         let mut iter = self.primes.iter();
         let mut d = iter.next().unwrap().clone();
-        while d.clone() * d.clone() <= n.clone() {
+        while &d * &d <= *n {
             if n.clone() % d.clone() == T::zero() {
                 return false;
             }
@@ -114,7 +124,7 @@ impl<T: Integer + FromPrimitive + ToPrimitive + Clone> Sieve<T> {
                 d = p.clone();
             } else {
                 // Check all odd numbers if we run out of primes
-                d = d + FromPrimitive::from_i32(2).unwrap();
+                d = &d + &two;
             }
         }
 
@@ -127,17 +137,19 @@ impl<T: Integer + FromPrimitive + ToPrimitive + Clone> Sieve<T> {
         // This is similar to the is_prime method, except we're counting them
         let mut divisors = 1;
         let mut n = n.clone();
+
+        let two = T::one() + T::one();
         let mut iter = self.primes.iter();
         let mut d = iter.next().unwrap().clone();
-        while n.clone() > T::one() {
-            if n.clone() % d.clone() == T::zero() {
+        while n > T::one() {
+            if &n % &d == T::zero() {
                 // This is the power of the prime + 1
                 let mut choices = 2;
                 // Divide out all powers of this prime
-                n = n / d.clone();
-                while n.clone() % d.clone() == T::zero() {
+                n = &n / &d;
+                while &n % &d == T::zero() {
                     choices += 1;
-                    n = n / d.clone();
+                    n = &n / &d;
                 }
 
                 // Update number of divisors given the "choices"
@@ -148,11 +160,55 @@ impl<T: Integer + FromPrimitive + ToPrimitive + Clone> Sieve<T> {
             if let Some(p) = iter.next() {
                 d = p.clone();
             } else {
-                d = d + FromPrimitive::from_i32(2).unwrap();
+                d = &d + &two;
             }
         }
 
         divisors
+    }
+
+    /// Sums the prime divisors of a number
+    pub fn sum_divisors(&self, n: &T) -> T {
+        // This is just the count_divisors method, except we
+        // keep track of the sum instead of the number
+        // Use the fact that the sum of divisors function is
+        // multiplicative
+        let mut sum = T::one();
+        let mut n = n.clone();
+
+        let two = T::one() + T::one();
+        let mut iter = self.primes.iter();
+        let mut d = iter.next().unwrap().clone();
+        while n > T::one() {
+            if &n % &d == T::zero() {
+                // The sum of divisors of this prime power
+                let mut sum_power = &T::one() + &d;
+                // Divide out all powers of this prime
+                n = &n / &d;
+                while &n % &d == T::zero() {
+                    sum_power = &d * &sum_power + T::one();
+                    n = &n / &d;
+                }
+
+                // Update the sum of divisors with this multiplicative factor
+                sum = sum * sum_power;
+            }
+
+            // Get next divisor
+            if let Some(p) = iter.next() {
+                d = p.clone();
+            } else {
+                d = &d + &two;
+            }
+        }
+
+        sum
+    }
+
+
+    /// Sums only proper divisors
+    pub fn sum_proper_divisors(&self, n: &T) -> T {
+        &self.sum_divisors(n) - n
     }
 
     /// Returns a vector containing all the primes which were sieved
