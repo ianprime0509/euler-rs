@@ -20,7 +20,11 @@ mod p018;
 mod p019;
 mod p020;
 mod p021;
+mod p022;
+mod p023;
+mod p024;
 mod p025;
+mod p026;
 
 pub fn solve(n: i32) {
     match n {
@@ -46,7 +50,11 @@ pub fn solve(n: i32) {
         19 => p019::solve(),
         20 => p020::solve(),
         21 => p021::solve(),
+        22 => p022::solve(),
+        23 => p023::solve(),
+        24 => p024::solve(),
         25 => p025::solve(),
+        26 => p026::solve(),
         _ => println!("unimplemented"),
     }
 }
