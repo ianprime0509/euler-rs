@@ -1,5 +1,5 @@
 use std::ops::{Add, Mul, Div, Rem};
-use num::{Num, Integer, PrimInt, FromPrimitive, Unsigned};
+use num::{Integer, PrimInt, FromPrimitive, Unsigned};
 
 /// Computes the binomial coefficient (n choose m)
 /// Returns `None` if an input is invalid

@@ -1,9 +1,7 @@
 use math::primes::Sieve;
 
-use num::Signed;
-
 pub fn solve() {
-    let sieve = Sieve::sieve_to(&1_000_000u64).unwrap();
+    let sieve = Sieve::sieve_to(1_000_000u64);
 
     let (mut max_a, mut max_b, mut max_n) = (0, 0, 0);
     for a in -1000..1000i64 {
@@ -14,7 +12,7 @@ pub fn solve() {
             let mut p = b;
             let mut inc = 1 + a;
             for n in 0.. {
-                if !sieve.is_prime(&(p.abs() as u64)) {
+                if !sieve.is_prime(p.abs() as u64) {
                     // At this point, n is the number of successive primes
                     if n > max_n {
                         max_a = a;
