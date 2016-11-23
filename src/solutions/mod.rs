@@ -25,6 +25,7 @@ mod p023;
 mod p024;
 mod p025;
 mod p026;
+mod p027;
 
 pub fn solve(n: i32) {
     match n {
@@ -55,6 +56,7 @@ pub fn solve(n: i32) {
         24 => p024::solve(),
         25 => p025::solve(),
         26 => p026::solve(),
+        27 => p027::solve(),
         _ => println!("unimplemented"),
     }
 }

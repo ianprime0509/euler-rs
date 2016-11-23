@@ -1,7 +1,7 @@
 use std::ops::{Add, Sub, Mul, Div, Rem};
 
 use bit_vec::BitVec;
-use num::{FromPrimitive, ToPrimitive, Integer};
+use num::{FromPrimitive, ToPrimitive, Integer, Unsigned};
 
 pub struct Sieve<T: Integer + Clone> {
     /// is_prime only deals with odd numbers, so e.g. the 0th index is 3, etc.
@@ -24,7 +24,7 @@ pub struct SieveError {
 }
 
 impl<T> Sieve<T>
-    where T: Integer + FromPrimitive + ToPrimitive + Clone,
+    where T: Integer + Unsigned + FromPrimitive + ToPrimitive + Clone,
           for<'a> &'a T: Add<Output = T>,
           for<'a> &'a T: Sub<Output = T>,
           for<'a> &'a T: Mul<Output = T>,
@@ -106,13 +106,24 @@ impl<T> Sieve<T>
 
     /// Checks whether the given number is prime
     pub fn is_prime(&self, n: &T) -> bool {
+        // If n is less than two, not prime
+        if n <= &T::one() {
+            return false;
+        }
+        // If n is even and not two, not prime
+        let two = T::one() + T::one();
+        if n.clone() % two.clone() == T::zero() {
+            return n.clone() == two.clone();
+        }
+
         // If n is within this sieve's range, just check directly
-        if n.clone() < FromPrimitive::from_usize(2 * self.prime_bits.len() + 3).unwrap() {
-            return self.prime_bits[n.to_usize().unwrap()];
+        let three = two.clone() + T::one();
+        let n_index = &(n.clone() - three.clone()) / &two;
+        if &n_index < &FromPrimitive::from_usize(self.prime_bits.len()).unwrap() {
+            return self.prime_bits[n_index.to_usize().unwrap()];
         }
 
         // Otherwise, we'll actually have to do trial division
-        let two = T::one() + T::one();
         let mut iter = self.primes.iter();
         let mut d = iter.next().unwrap().clone();
         while &d * &d <= *n {

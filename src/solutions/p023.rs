@@ -2,7 +2,7 @@ use math::primes::Sieve;
 
 pub fn solve() {
     // Get a list of all the abundant numbers less than 28123
-    let sieve = Sieve::sieve_to(&28123).unwrap();
+    let sieve = Sieve::sieve_to(&28123u32).unwrap();
     let abundant: Vec<_> = (2..28123)
         .filter(|&n| sieve.sum_proper_divisors(&n) > n)
         .collect();
