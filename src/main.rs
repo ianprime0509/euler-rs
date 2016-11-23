@@ -1,4 +1,6 @@
 extern crate bit_vec;
+#[macro_use]
+extern crate itertools;
 extern crate num;
 extern crate time;
 

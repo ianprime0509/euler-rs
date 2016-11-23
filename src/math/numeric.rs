@@ -1,5 +1,5 @@
 use std::ops::{Add, Mul, Div, Rem};
-use num::{Num, Integer, PrimInt, Zero, One, FromPrimitive};
+use num::{Num, Integer, PrimInt, FromPrimitive, Unsigned};
 
 /// Computes the binomial coefficient (n choose m)
 /// Returns `None` if an input is invalid
@@ -22,7 +22,7 @@ pub fn pow_primint<T, U>(n: &T, m: U) -> T
     where T: Integer + Clone,
           for<'a> &'a T: Add<Output = T>,
           for<'a> &'a T: Mul<Output = T>,
-          U: PrimInt
+          U: PrimInt + Unsigned
 {
     let mut m = m;
     let mut pow = T::one();
