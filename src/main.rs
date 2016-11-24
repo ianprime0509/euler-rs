@@ -18,5 +18,5 @@ fn main() {
     stdin.lock().read_line(&mut line).unwrap();
     let n: i32 = line.trim().parse().unwrap();
 
-    solutions::solve(n);
+    println!("{}", solutions::solve(n));
 }

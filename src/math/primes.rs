@@ -12,7 +12,7 @@ impl<T> Sieve<T>
 {
     /// Creates a new prime sieve and finds all primes up to and including the given limit
     pub fn sieve_to(limit: T) -> Sieve<T> {
-        let is_prime_size = limit.to_usize().unwrap();
+        let is_prime_size = limit.to_usize().unwrap() / 2 - 1;
         // The prime_bits vector and the vector of primes which will make up the sieve
         let mut prime_bits = BitVec::from_elem(is_prime_size, true);
         let mut primes: Vec<T> = Vec::new();
