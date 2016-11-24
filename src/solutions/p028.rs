@@ -1,6 +1,8 @@
+use solutions::Solution;
+
 const SPIRAL_SIZE: u32 = 1001;
 
-pub fn solve() {
+pub fn solve() -> Solution {
     let mut sum = 1;
     // For each diagonal, we look at odd n starting from 3
     // and going until 1001 (the nth ring) and sum the values
@@ -27,5 +29,5 @@ pub fn solve() {
     // to derive an explicit closed form is left as an exercise to the
     // reader :^)
 
-    println!("{}", sum);
+    Solution::new(&format!("{}", sum))
 }

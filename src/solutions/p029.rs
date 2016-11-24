@@ -1,8 +1,11 @@
 use std::collections::HashSet;
-use num::{BigUint, FromPrimitive};
-use math::numeric;
 
-pub fn solve() {
+use num::{BigUint, FromPrimitive};
+
+use math::numeric;
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     // This is a very brute force way of doing things,
     // but whatever, it runs quickly enough :^)
     let mut powers = HashSet::new();
@@ -13,5 +16,5 @@ pub fn solve() {
         }
     }
 
-    println!("{}", powers.len());
+    Solution::new(&format!("{}", powers.len()))
 }

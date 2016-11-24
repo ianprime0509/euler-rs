@@ -1,6 +1,7 @@
 use num::{BigInt, One};
+use solutions::Solution;
 
-pub fn solve() {
+pub fn solve() -> Solution {
     let mut n = BigInt::one();
     let mut m = BigInt::one();
 
@@ -9,8 +10,7 @@ pub fn solve() {
         // When we find a term with 1000 digits, print out the index
         // and stop
         if m.to_string().len() == 1000 {
-            println!("{}", i);
-            return;
+            return Solution::new(&format!("{}", i));
         }
 
         // Get next pair of sequence elements and continue
@@ -18,4 +18,6 @@ pub fn solve() {
         n = m;
         m = &n + &tmp;
     }
+
+    Solution::new("Something is wrong")
 }

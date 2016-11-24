@@ -1,6 +1,7 @@
 use math::primes::Sieve;
+use solutions::Solution;
 
-pub fn solve() {
+pub fn solve() -> Solution {
     let sieve = Sieve::sieve_to(1_000_000u64);
 
     let (mut max_a, mut max_b, mut max_n) = (0, 0, 0);
@@ -29,5 +30,5 @@ pub fn solve() {
         }
     }
 
-    println!("{}", max_a * max_b);
+    Solution::new(&format!("{}", max_a * max_b))
 }

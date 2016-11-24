@@ -1,4 +1,6 @@
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     // By observing that 6 * 9^5 < 999999, it is clear that
     // we don't have to check numbers with more than 6 digits
     // (and by the problem statement, we shouldn't check 1 digit
@@ -10,7 +12,7 @@ pub fn solve() {
         }
     }
 
-    println!("{}", sum);
+    Solution::new(&format!("{}", sum))
 }
 
 fn sum_digit_fifth_powers(n: u32) -> u32 {

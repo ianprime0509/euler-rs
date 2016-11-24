@@ -1,6 +1,7 @@
 use math::primes::Sieve;
+use solutions::Solution;
 
-pub fn solve() {
+pub fn solve() -> Solution {
     // Get a list of all the abundant numbers less than 28123
     let sieve = Sieve::sieve_to(28123u32);
     let abundant: Vec<_> = (2..28123)
@@ -29,5 +30,5 @@ pub fn solve() {
         sum += n;
     }
 
-    println!("{}", sum);
+    Solution::new(&format!("{}", sum))
 }

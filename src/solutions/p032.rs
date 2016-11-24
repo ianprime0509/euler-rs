@@ -1,6 +1,9 @@
 use std::collections::HashSet;
 
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
+    let mut description = String::new();
     // Useful facts:
     // 99*99 = 9801 < 12345
     // 1111*11 = 12221 > 789
@@ -48,7 +51,7 @@ pub fn solve() {
         // 0 to 9 (including the 0 we inserted earlier), then we have
         // a pandigital product
         if tmp == 0 && digits23.len() == 10 {
-            println!("{} x {} = {}", n1, n2, prod);
+            description += &format!("{} x {} = {}\n", n1, n2, prod);
             products.insert(prod);
         }
 
@@ -64,10 +67,11 @@ pub fn solve() {
             tmp /= 10;
         }
         if tmp == 0 && digits14.len() == 10 {
-            println!("{} x {} = {}", n1, n2, prod);
+            description += &format!("{} x {} = {}\n", n1, n2, prod);
             products.insert(prod);
         }
     }
 
-    println!("{}", products.iter().fold(0, |acc, x| acc + x));
+    let answer = format!("{}", products.iter().fold(0, |acc, x| acc + x));
+    Solution::with_details(&answer, &description)
 }

@@ -1,6 +1,8 @@
 use std::string::ToString;
 
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     // Try products of 3 digit numbers
     let mut largest = 0;
     for n in (100..999).rev() {
@@ -13,7 +15,7 @@ pub fn solve() {
         }
     }
 
-    println!("{}", largest);
+    Solution::new(&format!("{}", largest))
 }
 
 // Doesn't account for Unicode because it doesn't matter for this problem

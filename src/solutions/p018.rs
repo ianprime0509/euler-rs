@@ -1,3 +1,5 @@
+use solutions::Solution;
+
 const TRI: &'static str = "75
 95 64
 17 47 82
@@ -14,7 +16,7 @@ const TRI: &'static str = "75
 63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23";
 
-pub fn solve() {
+pub fn solve() -> Solution {
     // Get triangle array
     let mut tri: Vec<Vec<u32>> = TRI.lines()
         .map(|l| {
@@ -38,7 +40,7 @@ pub fn solve() {
         }
     }
 
-    println!("{}", tri[0][0]);
+    Solution::new(&format!("{}", tri[0][0]))
 }
 
 fn max<T: Ord + Copy>(a: T, b: T) -> T {

@@ -1,4 +1,6 @@
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     let mut sum = 0u64;
     let mut sum_sq = 0u64;
 
@@ -7,5 +9,5 @@ pub fn solve() {
         sum_sq += n * n;
     }
 
-    println!("{}", sum * sum - sum_sq);
+    Solution::new(&format!("{}", sum * sum - sum_sq))
 }

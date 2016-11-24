@@ -1,6 +1,8 @@
 use math::numeric;
 
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     // LOL
-    println!("{}", numeric::binomial(&40u64, &20).unwrap());
+    Solution::new(&format!("{}", numeric::binomial(&40u64, &20).unwrap()))
 }

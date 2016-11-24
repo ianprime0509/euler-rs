@@ -1,10 +1,12 @@
 use num::Integer;
 
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     let mut lcm: u64 = 2;
     for n in 3..21 {
         lcm = lcm.lcm(&n);
     }
 
-    println!("{}", lcm);
+    Solution::new(&format!("{}", lcm))
 }

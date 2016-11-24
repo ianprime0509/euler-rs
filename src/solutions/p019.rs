@@ -1,4 +1,6 @@
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
     let mut day_of_week = 1;
     // Loop through years and months and count when the first of the month
@@ -19,7 +21,7 @@ pub fn solve() {
         }
     }
 
-    println!("{}", first_sundays);
+    Solution::new(&format!("{}", first_sundays))
 }
 
 fn is_leap_year(year: u32) -> bool {

@@ -1,11 +1,13 @@
 use std::ops::Mul;
+
 use num::{BigInt, Integer, FromPrimitive};
 
 use math::numeric;
+use solutions::Solution;
 
-pub fn solve() {
+pub fn solve() -> Solution {
     let n: BigInt = FromPrimitive::from_u32(100).unwrap();
-    println!("{}", numeric::sum_digits(&factorial(&n)));
+    Solution::new(&format!("{}", numeric::sum_digits(&factorial(&n))))
 }
 
 fn factorial<T>(n: &T) -> T

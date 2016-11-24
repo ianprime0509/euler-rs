@@ -1,7 +1,9 @@
 use math::primes::Sieve;
 
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     let sieve = Sieve::sieve_to(1_000_000u32);
 
-    println!("{}", sieve.nth(10001).unwrap());
+    Solution::new(&format!("{}", sieve.nth(10001).unwrap()))
 }

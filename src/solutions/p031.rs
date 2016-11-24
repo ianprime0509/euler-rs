@@ -1,10 +1,12 @@
+use solutions::Solution;
+
 const COIN_VALS: [i32; 8] = [1, 2, 5, 10, 20, 50, 100, 200];
 
-pub fn solve() {
+pub fn solve() -> Solution {
     // We can do this by using a "restricted partition" function:
     // Start with whatever amount (in this case 200p) and
     // then calculate the number of partitions involving coins recursively.
-    println!("{}", partition_coins(200, 200));
+    Solution::new(&format!("{}", partition_coins(200, 200)))
 }
 
 /// Returns the number of partitions of `amt` into coins of

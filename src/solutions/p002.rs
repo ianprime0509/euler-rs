@@ -1,4 +1,6 @@
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     let (mut f1, mut f2) = (1, 1);
     let mut sum = 0u64;
 
@@ -11,5 +13,5 @@ pub fn solve() {
         f2 = tmp;
     }
 
-    println!("{}", sum);
+    Solution::new(&format!("{}", sum))
 }

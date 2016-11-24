@@ -1,5 +1,7 @@
 use num::{BigUint, Zero};
 
+use solutions::Solution;
+
 const NUMS: &'static str = "37107287533902102798797998220837590246510135740250
 46376937677490009712648124896970078050417018260538
 74324986199524741059474233309513058123726617309629
@@ -101,12 +103,12 @@ const NUMS: &'static str = "37107287533902102798797998220837590246510135740250
 20849603980134001723930671666823555245252804609722
 53503534226472524250874054075591789781264330331690";
 
-pub fn solve() {
+pub fn solve() -> Solution {
     // Sum up the numbers
     let sum = NUMS.lines()
         .map(|s| s.trim().parse::<BigUint>().unwrap())
         .fold(BigUint::zero(), |acc, x| acc + x);
 
     // Print first 10 digits
-    println!("{}", &sum.to_string()[..10]);
+    Solution::new(&format!("{}", &sum.to_string()[..10]))
 }

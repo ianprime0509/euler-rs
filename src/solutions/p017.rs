@@ -1,9 +1,11 @@
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     let mut sum = 0;
     for n in 1..1001 {
         sum += wordify(n).len();
     }
-    println!("{}", sum);
+    Solution::new(&format!("{}", sum))
 }
 
 /// Turns the given number (in the range [1,1000]) into a string with no spaces or dashes

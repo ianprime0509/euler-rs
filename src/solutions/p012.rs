@@ -1,6 +1,8 @@
 use math::primes::Sieve;
 
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     let sieve = Sieve::sieve_to(1_000_000u32);
 
     // You don't have to square any numbers, just use divided differences
@@ -9,8 +11,7 @@ pub fn solve() {
     loop {
         let sigma = sieve.count_divisors(triangle);
         if sigma > 500 {
-            println!("{}", triangle);
-            return;
+            return Solution::new(&format!("{}", triangle));
         }
 
         triangle += inc;

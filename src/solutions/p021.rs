@@ -1,6 +1,7 @@
 use math::primes::Sieve;
+use solutions::Solution;
 
-pub fn solve() {
+pub fn solve() -> Solution {
     let sieve = Sieve::sieve_to(100_000u32);
     let mut sum = 0;
 
@@ -12,5 +13,5 @@ pub fn solve() {
         }
     }
 
-    println!("{}", sum);
+    Solution::new(&format!("{}", sum))
 }

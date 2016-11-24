@@ -1,4 +1,6 @@
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     let mut n = 600851475143u64;
     let mut d = 1;
     // Get rid of powers of 2 first (not really necessary here but whatevs)
@@ -24,5 +26,5 @@ pub fn solve() {
         try += 2;
     }
 
-    println!("{}", d);
+    Solution::new(&format!("{}", d))
 }

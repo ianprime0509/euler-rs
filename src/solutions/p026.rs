@@ -1,4 +1,6 @@
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     // ( ͡° ͜ʖ ͡°)
     let mut longest_d = 0;
     for d in 1..1000 {
@@ -7,7 +9,7 @@ pub fn solve() {
         }
     }
 
-    println!("{}", longest_d);
+    Solution::new(&format!("{}", longest_d))
 }
 
 /// Returns the length of the recurring cycle in 1/n (0 if there is none)

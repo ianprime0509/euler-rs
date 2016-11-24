@@ -32,7 +32,45 @@ mod p030;
 mod p031;
 mod p032;
 
-pub fn solve(n: i32) {
+use std::fmt;
+
+#[derive(Debug)]
+pub struct Solution {
+    answer: String,
+    details: String,
+}
+
+impl fmt::Display for Solution {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        if self.details.is_empty() {
+            write!(f, "ANSWER: {}", self.answer)
+        } else {
+            write!(f, "{}\nANSWER: {}", self.details, self.answer)
+        }
+    }
+}
+
+impl Solution {
+    pub fn new(answer: &str) -> Solution {
+        Solution::with_details(answer, "")
+    }
+
+    pub fn with_details(answer: &str, details: &str) -> Solution {
+        Solution {
+            answer: answer.to_owned(),
+            details: details.to_owned(),
+        }
+    }
+
+    /// Gets the answer contained within this `Solution`; this should be
+    /// exactly the text that gets entered into the solution box
+    /// on the Project Euler website
+    pub fn answer(&self) -> String {
+        self.answer.clone()
+    }
+}
+
+pub fn solve(n: i32) -> Solution {
     match n {
         0 => p000::solve(),
         1 => p001::solve(),
@@ -67,6 +105,36 @@ pub fn solve(n: i32) {
         30 => p030::solve(),
         31 => p031::solve(),
         32 => p032::solve(),
-        _ => println!("unimplemented"),
+        _ => Solution::new("unimplemented"),
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::solve;
+
+    macro_rules! test {
+        ($n:ident, $i:expr, $s:expr) => {
+            #[test]
+            fn $n() {
+                if $s != solve($i).answer() {
+                    panic!("Expected: '{}' Got: '{}'", $s, solve($i).answer());
+                }
+            }
+        }
+    }
+
+    test!(p001, 1, "233168");
+    test!(p002, 2, "4613732");
+    test!(p003, 3, "6857");
+    test!(p004, 4, "906609");
+    test!(p005, 5, "232792560");
+    test!(p006, 6, "25164150");
+    test!(p007, 7, "104743");
+    test!(p008, 8, "23514624000");
+    test!(p009, 9, "31875000");
+    test!(p010, 10, "142913828922");
+    test!(p011, 11, "70600674");
+    test!(p012, 12, "76576500");
+    // TODO: add rest of tests
 }

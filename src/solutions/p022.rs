@@ -1,6 +1,8 @@
+use solutions::Solution;
+
 const NAMES: &'static str = include_str!("resources/p022.txt");
 
-pub fn solve() {
+pub fn solve() -> Solution {
     // Get the list of names, sorted alphabetically
     let mut names: Vec<_> = NAMES.split(',')
         .map(|s| s.replace('"', ""))
@@ -13,7 +15,7 @@ pub fn solve() {
         sum += score;
     }
 
-    println!("{}", sum);
+    Solution::new(&format!("{}", sum))
 }
 
 /// Gets the alphabetical value of the word (assumed to be uppercase)

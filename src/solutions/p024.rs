@@ -1,4 +1,6 @@
-pub fn solve() {
+use solutions::Solution;
+
+pub fn solve() -> Solution {
     // This problem is much more "purely mathematical" in nature than some others.
     // Process: start with the list {0, 1, ..., 9}
     // If we wish to find the Nth lexicographic permutation, note that
@@ -21,7 +23,7 @@ pub fn solve() {
         n %= factorial(i);
     }
 
-    println!("{}", result);
+    Solution::new(&format!("{}", result))
 }
 
 fn factorial(n: usize) -> usize {

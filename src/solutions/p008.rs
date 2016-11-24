@@ -1,3 +1,5 @@
+use solutions::Solution;
+
 const NUMBER: &'static str = "73167176531330624919225119674426574742355349194934
 96983520312774506326239578318016984801869478851843
 85861560789112949495459501737958331952853208805511
@@ -19,7 +21,7 @@ const NUMBER: &'static str = "73167176531330624919225119674426574742355349194934
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450";
 
-pub fn solve() {
+pub fn solve() -> Solution {
     // Get digits as a vector
     let digits: Vec<_> = NUMBER.chars()
         .filter(|c| c.is_numeric())
@@ -40,5 +42,5 @@ pub fn solve() {
         }
     }
 
-    println!("{}", max);
+    Solution::new(&format!("{}", max))
 }

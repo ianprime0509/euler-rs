@@ -1,6 +1,8 @@
+use solutions::Solution;
+
 const LARGEST: u64 = 1_000_000;
 
-pub fn solve() {
+pub fn solve() -> Solution {
     let mut max = 0;
     let mut max_chain = 0;
 
@@ -13,7 +15,7 @@ pub fn solve() {
         }
     }
 
-    println!("{}", max);
+    Solution::new(&format!("{}", max))
 }
 
 fn collatz_len(n: u64) -> u32 {
