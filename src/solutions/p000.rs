@@ -5,8 +5,8 @@ use time;
 
 pub fn solve() -> Solution {
     let start = time::precise_time_ns();
-    let sieve = Sieve::sieve_to(100u32);
-    let answer = format!("{:?}", sieve.primes());
+    let sieve = Sieve::sieve_to(100000u32);
+    let answer = format!("{:?}", sieve.primes().len());
     let end = time::precise_time_ns();
 
     let details = format!("Total time: {} ns = {} ms",

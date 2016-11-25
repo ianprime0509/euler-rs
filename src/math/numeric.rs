@@ -17,6 +17,11 @@ pub fn binomial<T: Integer + Clone>(n: &T, m: &T) -> Option<T> {
     }
 }
 
+/// Computes the least common multiple of the two given integers
+pub fn lcm<T: Integer + Clone>(n: &T, m: &T) -> T {
+    n.clone() * m.clone() / n.clone().gcd(m)
+}
+
 /// Computes integer powers n^m where m is a primitive integral type
 pub fn pow_primint<T, U>(n: &T, m: U) -> T
     where T: Integer + Clone,
